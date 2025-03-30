@@ -14,6 +14,7 @@ let messageIndex = 0;
 let messageInterval;
 let randomKey = localStorage.getItem("loadingKey") || "SPACE"; // Get stored key
 let gameRunning = false;
+let stopMessages = false; // Flag to stop messages
 let messages = [ 
     "Help me, I am stuck step brother 😭😭😭😭😭😭", 
     "There is a 50% chance you will die eating air while breathing water 🌊", 
@@ -52,13 +53,13 @@ function updateProgress() {
         startFunnyMessages(); 
     } 
 } 
-
 // Show random funny messages & hints after 50% 
 function startFunnyMessages() { 
     loadingText.innerText = "loading 50%";  
     messageIndex = 0;  
 
     function showNextMessage() {  
+        if (stopMessages) return; // Stop messages if flag is set
         if (messageIndex >= messages.length) return; // Stop if no more messages  
 
         let message = messages[messageIndex];  
@@ -80,7 +81,8 @@ setTimeout(updateProgress, 500);
 // Listen for the correct key to continue loading after 50% 
 document.addEventListener("keydown", (event) => {  
     if (event.key.toUpperCase() === randomKey && progress < 100) {  
-        clearTimeout(messageInterval); // Stop funny messages 
+        stopMessages = true; // Stop showing messages
+        clearTimeout(messageInterval); // Clear ongoing message timeout
         progress += Math.random() * 10 + 5;  
         progress = Math.min(100, progress);  
         progressBar.style.width = progress + "%"; 
@@ -181,7 +183,7 @@ function stopErrors() {
  
 function loadNextStage() { 
     let script = document.createElement("script"); 
-    script.src = "nextStage.js"; 
+    script.src = "js/nextStage.js"; 
     document.body.appendChild(script); 
 } 
  
@@ -195,7 +197,7 @@ function transformIntoSnake() {
     let numSegments = Math.floor(barWidth / gridSize); 
      
     progressBar.style.display = "none"; // Hide the green bar 
- 
+    setTimeout(() => {loadingText.innerText = "Wait what..."}, 4000);
     // Create snake segments matching the exact loading bar size 
     for (let i = 0; i < numSegments; i++) { 
         let segment = document.createElement("div"); 
@@ -271,7 +273,7 @@ function triggerErrorMode() {
     loadingBox.classList.add("error-mode"); // Red glow & shake effect
     document.body.classList.add("flashing"); // Flashing screen
 
-    let warnings = ["SYSTEM FAILURE", "ERROR 404: BAR ESCAPED", "CRITICAL ERROR"];
+    let warnings = ["SYSTEM FAILURE", "ERROR 404: BAR ESCAPED", "CRITICAL ERROR", "AAAAAAAAAAAAAAAAAA!!!", "WHAT THE HECK", "I'M ERROR"];
     let index = 0;
 
     setInterval(() => {

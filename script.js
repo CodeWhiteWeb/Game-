@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
             hintText.innerHTML = `Press <b>${randomKey}</b> to continue loading.`;
         }, 12000);
     };
-
+    console.log(`${randomKey}`)
     closeButton.addEventListener("click", function () {
         popup.style.display = "none"; // Hide popup
 
