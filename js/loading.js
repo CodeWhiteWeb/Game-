@@ -1,3 +1,110 @@
+document.body.innerHTML = `
+<div class="loading-container" id="loading-box">
+<p id="loading-text">Loading 0%</p>
+<div class="loading-bar">
+    <div id="progress"></div>
+</div>
+</div>
+    <style>
+    body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    overflow: hidden;
+}
+
+.loading-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background: white;
+    border: 3px solid black;
+    text-align: center;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    color: black;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 20px;
+    background: black;
+    border: 2px solid black;
+    position: relative;
+    overflow: hidden;
+}
+
+#progress {
+    width: 0%;
+    height: 100%;
+    background: green;
+    transition: width 0.3s ease;
+}
+
+.snake-segment {
+    position: absolute;
+    background: green;
+    border-radius: 0px;
+}
+
+/* Error animation */
+.error-mode {
+    animation: shake 0.2s infinite alternate, redGlow 0.1s infinite alternate;
+}
+
+@keyframes shake {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    25% { transform: translate(-48%, -52%) rotate(2deg); }
+    50% { transform: translate(-50%, -50%) rotate(-2deg); }
+    75% { transform: translate(-52%, -48%) rotate(2deg); }
+    100% { transform: translate(-50%, -50%) rotate(-2deg); }
+}
+
+@keyframes redGlow {
+    0% { box-shadow: 0 0 10px red; border-color: red; color: red; }
+    100% { box-shadow: 0 0 20px red; border-color: darkred; color: darkred; }
+}
+
+@keyframes screenFlash {
+    0% { background: black; }
+    50% { background: red; }
+    100% { background: black; }
+}
+
+.flashing {
+    animation: screenFlash 0.1s infinite alternate;
+}
+
+.portal {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle, cyan, blue);
+    border-radius: 50%;
+    box-shadow: 0 0 20px cyan, 0 0 40px blue;
+    animation: portalGlow 1s infinite alternate;
+    z-index: -1;
+}
+
+@keyframes portalGlow {
+    0% { box-shadow: 0 0 10px cyan, 0 0 20px blue; }
+    100% { box-shadow: 0 0 20px cyan, 0 0 40px blue; }
+}
+
+.snake {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: green;
+    border-radius: 5px;
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+
+</style>`;
 let progress = 0;
 const progressBar = document.getElementById("progress");
 const loadingText = document.getElementById("loading-text");
@@ -181,11 +288,19 @@ function stopErrors() {
     loadingText.innerText = "Processing..."; 
 } 
  
+
 function loadNextStage() { 
-    let script = document.createElement("script"); 
-    script.src = "js/nextStage.js"; 
-    document.body.appendChild(script); 
+    let script = document.querySelector("script[src='js/loading.js']");
+    if (script) script.remove();
+    let newScript = document.createElement("script");
+    newScript.src = "js/Stage1.js";
+    document.body.appendChild(newScript);
+    clearInterval(gameInterval);
+    document.body.innerHTML = "";
+    let styles = document.querySelectorAll("style");
+    styles.forEach((style) => style.remove());
 } 
+
  
 function transformIntoSnake() { 
     let rect = progressBar.getBoundingClientRect(); 
