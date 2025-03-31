@@ -169,6 +169,7 @@ function gameOver() {
     gameRun = false;
     popup.innerText = "You Got Eaten!";
     popup.style.opacity = "1";
+    playerElement.style.display = "None";
     document.body.appendChild(popup);
     setTimeout(() => {
         popup.style.opacity = "0";
