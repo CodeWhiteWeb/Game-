@@ -1,4 +1,4 @@
-### This project is still in its early stage and may not work properly, also i am making this in my free time, so no promises when it will be released
+### This project is still in its early stage and may not work properly, also i am making this in my free time
 
 # Game?  
 
