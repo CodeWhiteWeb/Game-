@@ -1,13 +1,9 @@
-### This project is still in its early stage and may not work properly, also i am making this in my free time
+#### This project is still in its early prototyping stage and may not work properly, also i am making this in my free time.
 
 # Game?  
+- Run directly by playing on [itch.io](https://codewhiteweb.itch.io/game)
 
-██████╗░░█████╗░███╗░░░███╗███████╗░██████╗  
-██╔══██╗██╔══██╗████╗░████║██╔════╝██╔════╝  
-██████╔╝███████║██╔████╔██║█████╗░░╚█████╗░  
-██╔═══╝░██╔══██║██║╚██╔╝██║██╔══╝░░░╚═══██╗  
-██║░░░░░██║░░██║██║░╚═╝░██║███████╗██████╔╝  
-╚═╝░░░░░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝╚═════╝░  
+[![Available on itch.io](http://jessemillar.github.io/available-on-itchio-badge/badge-color.png)](https://codewhiteweb.itch.io/game)
 
 ---
 
