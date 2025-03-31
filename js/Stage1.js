@@ -12,7 +12,7 @@ let player = { x: Math.floor(cols / 2), y: Math.floor(rows / 2) };
 let playerElement;
 let direc = null;
 let gameRun = false;
-let timer = 120; // 2-minute survival timer
+let timer = 120; // survival timer
 
 // Create game container
 const gameContainer = document.createElement("div");
@@ -189,13 +189,23 @@ function gameWin() {
 }
 
 // Start game function
+let playerInterval, snakeMoveInterval, collisionInterval, timerInterval, snakeSpawnInterval;
+
 function startGame() {
     createPlayer();
-    setInterval(movePlayer, 200);
-    setInterval(moveSnakes, 200);
-    setInterval(checkCollisions, 100);
-    setInterval(updateTimer, 1000);
-    setInterval(createSnake, 3000); // Spawn new snakes
+    playerInterval = setInterval(movePlayer, 200);
+    snakeMoveInterval = setInterval(moveSnakes, 200);
+    collisionInterval = setInterval(checkCollisions, 100);
+    timerInterval = setInterval(updateTimer, 1000);
+    snakeSpawnInterval = setInterval(createSnake, 3000); // Spawn new snakes
+}
+
+function stopGame() {
+    clearInterval(playerInterval);
+    clearInterval(snakeMoveInterval);
+    clearInterval(collisionInterval);
+    clearInterval(timerInterval);
+    clearInterval(snakeSpawnInterval);
 }
 
 function loadNextStage() { 
@@ -204,7 +214,7 @@ function loadNextStage() {
     let newScript = document.createElement("script");
     newScript.src = "js/Stage2.js";
     document.body.appendChild(newScript);
-    clearInterval(gameInterval);
+    stopGame();
     document.body.innerHTML = "";
     let styles = document.querySelectorAll("style");
     styles.forEach((style) => style.remove());

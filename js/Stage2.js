@@ -240,7 +240,7 @@ function loadNextStage() {
     let script = document.querySelector("script[src='js/Stage2.js']");
     if (script) script.remove();
     let newScript = document.createElement("script");
-    newScript.src = "js/Stage.js";
+    newScript.src = "js/Stage3.js";
     document.body.appendChild(newScript);
     document.body.innerHTML = "";
     let styles = document.querySelectorAll("style");
